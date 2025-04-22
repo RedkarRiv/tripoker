@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - '5173:5173'
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    env_file:
+      - ./frontend/.env
+    command: npm run dev
+    depends_on:
+      - backend
+    networks:
+      - tripoker_network  # Conectar a la red personalizada
+
+  backend:
+    build: ./backend
+    ports:
+      - '3001:3001'
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    env_file:
+      - ./backend/.env
+    command: ["/wait-for-it.sh", "db", "3306", "npm", "start"]
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db  # Esto debe estar correcto porque el servicio se llama db
+      - DB_PORT=3306
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+      - DB_NAME=${MYSQL_DATABASE}
+    networks:
+      - tripoker_network
+
+  db:
+    image: mysql:8
+    ports:
+      - '3306:3306'  # Solo necesario si necesitas acceso fuera del contenedor
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE:      ${MYSQL_DATABASE}
+      MYSQL_USER:          ${MYSQL_USER}
+      MYSQL_PASSWORD:      ${MYSQL_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+     # - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql  # Script de inicialización
+    networks:
+      - tripoker_network  # Conectar a la red personalizada
+
+volumes:
+  db_data:
+
+networks:
+  tripoker_network:
+    driver: bridge  # Usar el driver por defecto de Docker (bridge)
