@@ -25,7 +25,7 @@ services:
       - /app/node_modules
     env_file:
       - ./backend/.env
-    command: ["/wait-for-it.sh", "db", "3306", "npm", "start"]
+    command: ["bash", "/wait-for-it.sh", "db", "3306", "npm", "start"]
     depends_on:
       - db
     environment:
