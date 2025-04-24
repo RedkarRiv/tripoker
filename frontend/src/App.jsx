@@ -1,25 +1,19 @@
-import { Link, Routes, Route } from 'react-router-dom' 
+import {  Routes, Route } from 'react-router-dom' 
 import Home from './pages/Home'  
 import Contact from './pages/Contact'
+import Party from './pages/Party'
+import Navbar from './components/Navbar'
+
 import './App.css'
 
 const App = () => {
   return (
     <>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link> 
-          </li>
-          <li>
-            <Link to="/contact">Contact</Link> 
-          </li>
-        </ul>
-      </nav>
-      
+    <Navbar/>     
       <Routes>
         <Route path="/" element={<Home />} /> 
         <Route path="/contact" element={<Contact />} />  
+        <Route path="/party" element={<Party />} />  
       </Routes>
     </>
   )
