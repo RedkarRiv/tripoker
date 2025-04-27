@@ -1,11 +1,11 @@
-// routes/index.js
 import express from 'express';
+import authRoutes from './auth.js'; 
 
 const router = express.Router();
 
-// Ruta básica de prueba
-router.get('/', (req, res) => {
-  res.send('Poker backend working!');
-});
+
+router.get('/', (req, res) => {res.send('Poker backend working!');});
+
+router.use('/auth', authRoutes);
 
 export default router;

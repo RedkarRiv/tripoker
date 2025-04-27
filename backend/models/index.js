@@ -2,20 +2,18 @@ import fs from 'fs';
 import path from 'path';
 import { Sequelize } from 'sequelize';
 import process from 'process';
-import { fileURLToPath } from 'url'; // Importar fileURLToPath
-import config from '../config/config.js'; // Importar configuración de manera correcta
+import { fileURLToPath } from 'url';
+import config from '../config/config.js';
 
-// Obtener __dirname en módulos ES
-const __filename = fileURLToPath(import.meta.url); // Convertir URL a ruta
-const __dirname = path.dirname(__filename); // Obtener el directorio de __filename
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const basename = path.basename(__filename);
 const db = {};
-const env = process.env.NODE_ENV; // Establecer 'development' por defecto si no está definido
-console.log("Using environment:", env);  // Verifica el valor de NODE_ENV
-console.log("Config for current environment:", config[env]);
-const currentConfig = config[env];  // Acceder al ambiente actual de la configuración
+const env = process.env.NODE_ENV || 'development';
+const currentConfig = config[env];
 
 let sequelize;
+
 if (currentConfig.use_env_variable) {
   sequelize = new Sequelize(process.env[currentConfig.use_env_variable], currentConfig);
 } else {
@@ -31,9 +29,9 @@ fs.readdirSync(__dirname)
       file.indexOf('.test.js') === -1
     );
   })
-  .forEach(file => {
-    const model = import(path.join(__dirname, file)); 
-    db[model.name] = model;
+  .forEach(async (file) => {
+    const model = await import(path.join(__dirname, file));
+    db[model.default.name] = model.default;
   });
 
 Object.keys(db).forEach(modelName => {
@@ -45,5 +43,5 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-export { sequelize }; // Exportamos explícitamente sequelize
+export { sequelize };
 export default db;

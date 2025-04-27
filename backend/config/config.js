@@ -1,4 +1,4 @@
-import 'dotenv/config'; // Asegúrate de que dotenv se cargue correctamente
+import 'dotenv/config';
 
 export default {
   development: {
@@ -6,6 +6,7 @@ export default {
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
     dialect: 'mysql',
   },
   test: {
@@ -13,6 +14,7 @@ export default {
     password: process.env.DB_PASS,
     database: process.env.DB_NAME + '_test',
     host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
     dialect: 'mysql',
   },
   production: {
@@ -20,6 +22,7 @@ export default {
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
     dialect: 'mysql',
   }
 };
