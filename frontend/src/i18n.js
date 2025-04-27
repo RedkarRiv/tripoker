@@ -2,50 +2,34 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-// Busca todos los archivos de traducción (sin cargarlos aún)
-const modules = import.meta.glob('./locales/*/*.js');
+// Carga sincrónica de todos los archivos de traducción con Vite
+// Usamos import.meta.glob con { eager: true } para asegurar que se lean todos los módulos
+const modules = import.meta.glob('./locales/*/*.js', { eager: true });
 
-// 🔁 Extrae idiomas y namespaces desde los paths
-const availableNamespaces = {};
+// Construir el objeto resources a partir de los módulos cargados
+const resources = {};
 for (const path in modules) {
-  const match = path.match(/\.\/locales\/([^\/]+)\/(.+)\.js$/);
+  const match = path.match(/\.\/locales\/(?<lng>[^\/]+)\/(?<ns>.+)\.js$/);
   if (!match) continue;
-  const [, lng, ns] = match;
-  availableNamespaces[lng] = availableNamespaces[lng] || new Set();
-  availableNamespaces[lng].add(ns);
+  const { lng, ns } = match.groups;
+  resources[lng] = resources[lng] || {};
+  resources[lng][ns] = modules[path].default;
 }
 
-// Convertir Sets a arrays
-Object.keys(availableNamespaces).forEach(
-  (lng) => (availableNamespaces[lng] = Array.from(availableNamespaces[lng]))
-);
-
-// Inicialización básica
+// Inicializar i18next con todas las traducciones pre-cargadas
 i18n
   .use(initReactI18next)
   .init({
-    lng: 'es',
-    fallbackLng: 'en',
-    defaultNS: 'home',
-    interpolation: { escapeValue: false },  
-    resources: {},
+    resources,             // ya incluye todos los idiomas y namespaces
+    lng: 'es',             // idioma por defecto
+    fallbackLng: 'en',     // idioma de reserva
+    defaultNS: 'home',     // namespace por defecto
+    interpolation: { escapeValue: false },
   });
 
-// 👇 Carga perezosa por idioma y namespace
-export const loadNamespace = async (lng, ns) => {
-  const path = `./locales/${lng}/${ns}.js`;
-  const loader = modules[path];
-  if (loader && !i18n.hasResourceBundle(lng, ns)) {
-    const mod = await loader();
-    i18n.addResourceBundle(lng, ns, mod.default);
-  }
-};
+// Exportar namespaces disponibles (opcional)
+export const availableNamespaces = Object.fromEntries(
+  Object.entries(resources).map(([lng, nss]) => [lng, Object.keys(nss)])
+);
 
-// 👇 Opción útil si quieres precargar todos los namespaces de un idioma
-export const preloadLanguage = async (lng) => {
-  const namespaces = availableNamespaces[lng] || [];
-  await Promise.all(namespaces.map((ns) => loadNamespace(lng, ns)));
-};
-
-export { availableNamespaces };
 export default i18n;

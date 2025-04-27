@@ -5,13 +5,10 @@ import Home from './pages/Home'
 import Contact from './pages/Contact'
 import Party from './pages/Party'
 import Navbar from './components/Navbar'
-import i18n, { preloadLanguage } from './i18n';
+import i18n from './i18n';
 
 const App = () => {
 
-  useEffect(() => {
-    preloadLanguage(i18n.language);
-  }, []);
 
   return (
     <>
