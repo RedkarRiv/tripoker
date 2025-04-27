@@ -1,12 +1,18 @@
+import { useEffect } from 'react';
 import {  Routes, Route } from 'react-router-dom' 
+import './i18n';
 import Home from './pages/Home'  
 import Contact from './pages/Contact'
 import Party from './pages/Party'
 import Navbar from './components/Navbar'
-
-import './App.css'
+import i18n, { preloadLanguage } from './i18n';
 
 const App = () => {
+
+  useEffect(() => {
+    preloadLanguage(i18n.language);
+  }, []);
+
   return (
     <>
     <Navbar/>     

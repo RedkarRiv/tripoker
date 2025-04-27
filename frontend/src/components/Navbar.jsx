@@ -3,11 +3,11 @@ import { Link  } from 'react-router-dom'
 import categories from '../data/categories'; // Import the dictionary
 import _get from 'lodash/get';
 import _map from 'lodash/map';
-
+import LanguageSwitcher from './LanguageSwitcher'
 
 const Navbar = () => {
     return (
-      <nav className="w-full h-[4rem] overflow-y-hidden bg-red-700 text-white fixed top-0">
+      <nav className="w-full h-[4rem]  overflow-visible bg-red-700 text-white fixed top-0">
         <div className="max-w-screen-xl mx-auto flex items-center justify-between px-4 py-3">
           {/* Logo (flex-none para no estirar) */}
           <div className="flex-none">
@@ -38,6 +38,9 @@ const Navbar = () => {
               Login
             </a>
           </div>
+          <div className="relative">
+              <LanguageSwitcher/>
+            </div>
         </div>
       </nav>
     );
