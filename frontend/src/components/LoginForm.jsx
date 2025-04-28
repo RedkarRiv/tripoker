@@ -1,18 +1,15 @@
-// src/components/RegisterForm.jsx
+// src/components/LoginForm.jsx
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../features/auth/authSlice';
-import { registerUser } from '../services/authService.js';
+import { loginUser } from '../services/authService.js';
 
-function RegisterForm() {
+function LoginForm() {
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    confirmPassword: '',
-    firstName: '',
-    lastName: '',
   });
   const [loading, setLoading] = useState(false);
 
@@ -23,11 +20,12 @@ function RegisterForm() {
   const handleSubmit = async () => {
     setLoading(true);
 
-    const { email, password, confirmPassword, firstName, lastName } = formData;
+    const { email, password } = formData;
 
     try {
-      const data = await registerUser({ email, password, confirmPassword, firstName, lastName });
+      const data = await loginUser({ email, password });
       dispatch(setCredentials({ token: data.token, user: data.user }));
+      alert('Login correcto');
       //REDIRIGIR
     } catch (error) {
       console.error(error);
@@ -39,25 +37,7 @@ function RegisterForm() {
 
   return (
     <div className="flex flex-col gap-4 max-w-md mx-auto mt-10">
-      <h1>REGISTRO</h1>
-      <input
-        type="text"
-        name="firstName"
-        placeholder="Nombre"
-        value={formData.firstName}
-        onChange={handleChange}
-        required
-        className="border p-2"
-      />
-      <input
-        type="text"
-        name="lastName"
-        placeholder="Apellidos"
-        value={formData.lastName}
-        onChange={handleChange}
-        required
-        className="border p-2"
-      />
+      <h1>LOGIN</h1>
       <input
         type="email"
         name="email"
@@ -76,25 +56,16 @@ function RegisterForm() {
         required
         className="border p-2"
       />
-      <input
-        type="password"
-        name="confirmPassword"
-        placeholder="Confirmar contraseña"
-        value={formData.confirmPassword}
-        onChange={handleChange}
-        required
-        className="border p-2"
-      />
       <button
         type="button"
         disabled={loading}
         onClick={handleSubmit}
-        className="bg-blue-500 text-white p-2 hover:bg-blue-600"
+        className="bg-green-500 text-white p-2 hover:bg-green-600"
       >
-        {loading ? 'Registrando...' : 'Registrarse'}
+        {loading ? 'Entrando...' : 'Iniciar Sesión'}
       </button>
     </div>
   );
 }
 
-export default RegisterForm;
+export default LoginForm;
