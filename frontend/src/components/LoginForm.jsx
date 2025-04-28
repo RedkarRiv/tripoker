@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
-import { setCredentials } from '../features/auth/authSlice';
-import { loginUser } from '../services/authService.js';
-import { loginSchema } from '../validations/schema.js';
-import { useFormValidation } from '../hooks/useFormValidations.js';
+import { setCredentials } from '@features/auth/authSlice';
+import { loginUser } from '@services/authService.js';
+import { loginSchema } from '@validations/schema.js';
+import { useFormValidation } from '@hooks/useFormValidations.js';
 
 function LoginForm() {
   const dispatch = useDispatch();

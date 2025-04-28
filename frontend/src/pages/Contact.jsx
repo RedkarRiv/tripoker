@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import RegisterForm from '../components/RegisterForm';
-import LoginForm from '../components/LoginForm';
+import RegisterForm from '@components/RegisterForm';
+import LoginForm from '@components/LoginForm';
 
 const Contact = () => {
   const { t } = useTranslation('contact')

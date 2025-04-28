@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link  } from 'react-router-dom' 
-import categories from '../data/categories'; // Import the dictionary
+import categories from '@data/categories'; // Import the dictionary
 import _get from 'lodash/get';
 import _map from 'lodash/map';
 import LanguageSwitcher from './LanguageSwitcher'
