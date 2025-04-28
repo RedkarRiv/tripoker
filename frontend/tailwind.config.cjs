@@ -1,11 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./index.html","./src/**/*.{js,jsx}"],
+  content: ["./index.html", "./src/**/*.{js,jsx}"],
   darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'], 
+      },
+      colors: {
+        primaryColor: '#3490dc',  
+        secondaryColor: '#ff6f61',
+        tertiaryColor: '#f9a825', 
+      },
+      colors: {
+        primaryColorHover: '#2779bd', 
+        secondaryColorHover: '#e04f42',
+        tertiaryColorHover: '#c68c1d', 
       },
       fontSize: {
         xs: '0.75rem',    // 12px
@@ -17,6 +27,7 @@ module.exports = {
         '3xl': '1.875rem',// 30px
         '4xl': '2.25rem', // 36px
         '5xl': '3rem',    // 48px
+        '6xl': '3.75rem', // 60px
       },
       margin: {
         'xs': '0.25rem',  // 4px
@@ -24,6 +35,7 @@ module.exports = {
         'md': '1rem',     // 16px
         'lg': '1.5rem',   // 24px
         'xl': '2rem',     // 32px
+        '2xl': '3rem',    // 48px
       },
       padding: {
         'xs': '0.25rem',  // 4px
@@ -31,7 +43,8 @@ module.exports = {
         'md': '1rem',     // 16px
         'lg': '1.5rem',   // 24px
         'xl': '2rem',     // 32px
-      }
+        '2xl': '3rem',    // 48px
+      },
     },
   },
   plugins: [],
