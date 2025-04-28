@@ -30,17 +30,17 @@ const Navbar = () => {
           </div>
   
           {/* Área usuario */}
-          <div className="flex-none">
+          <div className="flex items-center gap-2">
             <a
               href="/login"
               className="text-base font-medium hover:text-blue-200 transition-colors"
             >
               Login
             </a>
-          </div>
-          <div className="relative">
+            <div className="relative">
               <LanguageSwitcher/>
-            </div>
+          </div>
+          </div>
         </div>
       </nav>
     );

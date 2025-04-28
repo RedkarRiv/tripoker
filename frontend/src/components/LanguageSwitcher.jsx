@@ -29,20 +29,20 @@ const LanguageSwitcher = () => {
     <div ref={switcherRef} className="relative inline-block text-left">
       <button
         onClick={() => setIsOpen((o) => !o)}
-        className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+        className="py-1 px-3 bg-blue-400 rounded hover:bg-blue-700 h-auto text-xs min-w-[3rem]"
       >
         {currentLang.toUpperCase()}
       </button>
 
       {isOpen && (
-        <div className="absolute mt-2 w-24 bg-white border rounded shadow z-50">
+        <div className="absolute mt-2 size-auto bg-white rounded shadow z-50 text-xs">
           {allLanguages
             .filter((lng) => lng !== currentLang)
             .map((lng) => (
               <button
                 key={lng}
                 onClick={() => changeLanguage(lng)}
-                className="block w-full px-4 py-2 text-left hover:bg-gray-100"
+                className="block w-full py-1 px-3 bg-blue-400 rounded hover:bg-blue-700 h-auto text-xs min-w-[3rem]"
               >
                 {lng.toUpperCase()}
               </button>
