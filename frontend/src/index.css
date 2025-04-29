@@ -1,6 +1,13 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* Reset básico de links */
+
+
 a {
   @apply no-underline text-inherit;
+}
+
+test {
+  color: #000000ad
 }

@@ -8,14 +8,13 @@ module.exports = {
         sans: ['Inter', 'sans-serif'], 
       },
       colors: {
-        primaryColor: '#3490dc',  
-        secondaryColor: '#ff6f61',
-        tertiaryColor: '#f9a825', 
-      },
-      colors: {
-        primaryColorHover: '#2779bd', 
+        primaryColor: '#0d610cb9',        // green
+        secondaryColor: '#0f240e',      // dark green
+        tertiaryColor: '#060608',       // blue black
+        primaryColorHover: '#021302',   
         secondaryColorHover: '#e04f42',
-        tertiaryColorHover: '#c68c1d', 
+        tertiaryColorHover: '#21212b',   // lighter blue black
+        fontPrimaryColor: '#998700'     // gold
       },
       fontSize: {
         xs: '0.75rem',    // 12px

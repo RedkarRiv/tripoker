@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const LanguageSwitcher = () => {
-  const { i18n } = useTranslation();     
+  const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const switcherRef = useRef(null);
 
@@ -26,23 +26,23 @@ const LanguageSwitcher = () => {
   }, []);
 
   return (
-    <div ref={switcherRef} className="relative inline-block text-left">
+    <div ref={switcherRef} className="relative inline-block text-left shadow">
       <button
         onClick={() => setIsOpen((o) => !o)}
-        className="py-1 px-3 bg-blue-400 rounded hover:bg-blue-700 h-auto text-xs min-w-[3rem]"
+        className="py-1 px-3 bg-secondaryColor rounded hover:bg-tertiaryColorHover  h-auto text-xs min-w-[3rem]"
       >
         {currentLang.toUpperCase()}
       </button>
 
       {isOpen && (
-        <div className="absolute mt-2 size-auto bg-white rounded shadow z-50 text-xs">
+        <div className="absolute bottom-full mb-2 size-auto bg-white rounded shadow z-50 text-xs">
           {allLanguages
             .filter((lng) => lng !== currentLang)
             .map((lng) => (
               <button
                 key={lng}
                 onClick={() => changeLanguage(lng)}
-                className="block w-full py-1 px-3 bg-blue-400 rounded hover:bg-blue-700 h-auto text-xs min-w-[3rem]"
+                className="block w-full py-1 px-3 bg-tertiaryColor rounded hover:bg-tertiaryColorHover h-auto text-xs min-w-[3rem]"
               >
                 {lng.toUpperCase()}
               </button>
