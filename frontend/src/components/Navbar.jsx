@@ -23,7 +23,7 @@ const Navbar = ({ onToggle }) => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 h-full bg-tertiaryColor text-white md:w-64 w-48 transform transition-transform duration-300 ease-in-out z-50 ${
+        className={`fixed top-0 left-0 h-full bg-tertiaryColor text-white md:w-48 w-48 transform transition-transform duration-300 ease-in-out z-50 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >

@@ -15,7 +15,7 @@ const App = () => {
   };
 
   // Creamos una variable con el padding dinámico
-  const paddingClass = isNavbarOpen ? 'md:pl-64' : 'md:pl-0';
+  const paddingClass = isNavbarOpen ? 'md:pl-48' : 'md:pl-0';
   const transitionClass = "transition-all duration-300 ease-in-out"
   const baseClass = `${paddingClass} ${transitionClass}`;
 
