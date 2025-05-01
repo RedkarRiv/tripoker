@@ -8,9 +8,9 @@ module.exports = {
         sans: ['Inter', 'sans-serif'], 
       },
       colors: {
-        primaryColor: '#0d610cb9',        // green
-        secondaryColor: '#0f240e',      // dark green
-        tertiaryColor: '#060608',       // blue black
+        primaryColor: '#c50808',        // red
+        secondaryColor: '#091609',      // dark green
+        tertiaryColor: '#010a00',       // blue black
         primaryColorHover: '#021302',   
         secondaryColorHover: '#e04f42',
         tertiaryColorHover: '#21212b',   // lighter blue black

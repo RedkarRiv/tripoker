@@ -1,19 +1,33 @@
+import homeIcon from '@public/icons/home_poker.svg';
+import rankIcon from '@public/icons/ranking_poker.svg';
+import rulesIcon from '@public/icons/rules_poker.svg';
+import statsIcon from '@public/icons/statistics_poker.svg';
+
 const categories = [
-    {
-      name: 'Home',
-      status: 'active', // Puedes definir si está activo o no
-      url: '/', // Aquí va la URL o ruta correspondiente
-    },
-    {
-      name: 'Partidas',
-      status: 'active',
-      url: '/party',
-    },
-    {
-      name: 'Contacto',
-      status: 'active', // También se puede marcar como inactivo si no está disponible
-      url: '/contact',
-    }
-  ];
-  
-  export default categories;
+  {
+    name: 'home',
+    status: 'active',
+    url: '/',
+    icon: homeIcon
+  },
+  {
+    name: 'rules',
+    status: 'active',
+    url: '/rules',
+    icon: rulesIcon
+  },
+  {
+    name: 'ranking',
+    status: 'active',
+    url: '/ranking',
+    icon: rankIcon
+  },
+  {
+    name: 'stats',
+    status: 'active',
+    url: '/statistics',
+    icon: statsIcon
+  }
+];
+
+export default categories;

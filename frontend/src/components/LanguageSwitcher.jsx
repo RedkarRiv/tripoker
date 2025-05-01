@@ -35,14 +35,14 @@ const LanguageSwitcher = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute bottom-full mb-2 size-auto bg-white rounded shadow z-50 text-xs">
+        <div className="absolute bottom-full mb-2 size-auto bg-transparent rounded shadow z-50 text-xs flex flex-col gap-1 bg-transparent">
           {allLanguages
             .filter((lng) => lng !== currentLang)
             .map((lng) => (
               <button
                 key={lng}
                 onClick={() => changeLanguage(lng)}
-                className="block w-full py-1 px-3 bg-tertiaryColor rounded hover:bg-tertiaryColorHover h-auto text-xs min-w-[3rem]"
+                className="block w-full py-1 px-3 bg-tertiaryColor rounded hover:bg-tertiaryColorHover h-auto text-xs min-w-[3rem] border"
               >
                 {lng.toUpperCase()}
               </button>

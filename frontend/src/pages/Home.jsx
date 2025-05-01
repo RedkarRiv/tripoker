@@ -1,10 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import _map from 'lodash/map';
+import _get from 'lodash/get';
+import sections from '@data/sections';
 import bannerHomePoker from '@public/banner_home_poker.webp';
-import dealerIcon      from '@public/icons/dealer_poker.svg';
-import pokerCircleIcon from '@public/icons/poker_circle.svg';
-import pokerTokenIcon  from '@public/icons/poker_token.svg';
-import pokerFriendIcon from '@public/icons/poker_friend.svg';
+
 
 const Home = ({ inheritClass }) => {
   const { t } = useTranslation('home')
@@ -17,23 +18,23 @@ const Home = ({ inheritClass }) => {
           className="w-fit h-full object-contain md:rounded-xl"
         />
       </div>
+
+      {/* Menú de secciones */}
       <div className="flex md:mt-12 gap-12 flex-wrap justify-center items-center">
-        <div className="md:w-48 md:h-48 w-32 h-32 bg-black rounded-lg text-center hover:bg-slate-950 cursor-pointer flex flex-col justify-between">
-          <img src={dealerIcon} alt="Party icon" className="invert w-full h-3/4 p-4" />
-          <span className="text-white bold pb-4">CREAR MESA</span>
-        </div>  
-        <div className="md:w-48 md:h-48 w-32 h-32 bg-black rounded-lg text-center hover:bg-slate-950 cursor-pointer flex flex-col justify-between">
-          <img src={pokerCircleIcon} alt="Party icon" className="invert w-full h-3/4 p-4" />
-          <span className="text-white bold pb-4">VER MESAS</span>
-        </div>
-        <div className="md:w-48 md:h-48 w-32 h-32 bg-black rounded-lg text-center hover:bg-slate-950 cursor-pointer flex flex-col justify-between">
-          <img src={pokerTokenIcon} alt="Party icon" className="invert w-full h-3/4 p-4" />
-          <span className="text-white bold pb-4">CARTERA</span>
-        </div>
-        <div className="md:w-48 md:h-48 w-32 h-32 bg-black rounded-lg text-center hover:bg-slate-950 cursor-pointer flex flex-col justify-between">
-          <img src={pokerFriendIcon} alt="Party icon" className="invert w-full h-3/4 p-4" />
-          <span className="text-white bold pb-4">AMIGOS</span>
-        </div>
+        {_map(sections, (section) =>
+          _get(section, 'status') === 'active' ? (
+            <Link
+              key={_get(section, 'name')}
+              to={_get(section, 'url')}
+              className="md:w-48 md:h-48 w-32 h-32 bg-transparent border rounded-lg text-center hover:bg-tertiaryColor hover:border-primaryColor cursor-pointer flex flex-col justify-between"
+            >
+              <img src={_get(section, 'icon')} alt="Party icon" className="invert w-full h-3/4 p-4" />
+              <span className="text-white bold pb-4 uppercase">
+                {t(_get(section, 'name'))}
+              </span>
+            </Link>
+          ) : null
+        )}
       </div>
     </div>
   );
