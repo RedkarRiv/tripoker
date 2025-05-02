@@ -1,27 +1,34 @@
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable('users', {
+  await queryInterface.createTable('parties', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    firstName: {
+    name: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    lastName: {
+    game_type: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    email: {
+    status: {
       type: Sequelize.STRING,
       allowNull: false,
-      unique: true,
     },
-    password: {
-      type: Sequelize.STRING,
-      allowNull: false,
+    started_at: {
+      type: Sequelize.DATE,
+      allowNull: true,
+    },
+    ended_at: {
+      type: Sequelize.DATE,
+      allowNull: true,
+    },
+    metadata: {
+      type: Sequelize.JSON,
+      allowNull: true,
     },
     createdAt: {
       allowNull: false,
@@ -36,7 +43,6 @@ export async function up(queryInterface, Sequelize) {
   });
 }
 
-/** @type {import('sequelize-cli').Migration} */
 export async function down(queryInterface) {
-  await queryInterface.dropTable('Users');
+  await queryInterface.dropTable('parties');
 }

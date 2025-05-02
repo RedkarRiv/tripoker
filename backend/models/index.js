@@ -8,40 +8,59 @@ import config from '../config/config.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const basename = path.basename(__filename);
-const db = {};
 const env = process.env.NODE_ENV || 'development';
 const currentConfig = config[env];
+
+const db = {};
 
 let sequelize;
 
 if (currentConfig.use_env_variable) {
   sequelize = new Sequelize(process.env[currentConfig.use_env_variable], currentConfig);
 } else {
-  sequelize = new Sequelize(currentConfig.database, currentConfig.username, currentConfig.password, currentConfig);
+  sequelize = new Sequelize(
+    currentConfig.database,
+    currentConfig.username,
+    currentConfig.password,
+    currentConfig
+  );
 }
 
-fs.readdirSync(__dirname)
-  .filter(file => {
-    return (
+const initModels = async () => {
+  const modelFiles = fs
+    .readdirSync(__dirname)
+    .filter(file =>
       file.indexOf('.') !== 0 &&
       file !== basename &&
       file.slice(-3) === '.js' &&
-      file.indexOf('.test.js') === -1
+      !file.endsWith('.test.js')
     );
-  })
-  .forEach(async (file) => {
-    const model = await import(path.join(__dirname, file));
-    db[model.default.name] = model.default;
+
+  const modelImports = await Promise.all(
+    modelFiles.map(file => import(path.join(__dirname, file)))
+  );
+
+  modelImports.forEach((importedModule) => {
+    const model = importedModule.default;
+    db[model.name] = model; 
   });
 
+  Object.keys(db).forEach(modelName => {
+    if (db[modelName].associate) {
+      db[modelName].associate(db); 
+    }
+  });
+
+  db.sequelize = sequelize;
+  db.Sequelize = Sequelize;
+
+  return db; 
+};
+
+const exportedModels = {};
 Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
+  exportedModels[modelName] = db[modelName];
 });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
-export { sequelize };
-export default db;
+export { sequelize, initModels };
+export default exportedModels;

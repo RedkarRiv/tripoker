@@ -4,7 +4,7 @@ import User from '../models/user.js';
 
 // Registro de usuario
 export const signup = async (req, res) => {
-    const { email, password, firstName, lastName } = req.body;
+    const { email, password, firstName, alias } = req.body;
     try {
         // Comprobar si el usuario ya existe
         const existing = await User.findOne({ where: { email } });
@@ -17,7 +17,7 @@ export const signup = async (req, res) => {
         const hashed = await bcrypt.hash(password, salt);
 
         // Crear usuario
-        const user = await User.create({ email, password: hashed, firstName, lastName });
+        const user = await User.create({ email, password: hashed, firstName, alias, role_id:3, token_amount:100 });
 
         // Firmar JWT
         const token = jwt.sign(

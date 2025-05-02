@@ -1,8 +1,13 @@
 import { Model, DataTypes } from 'sequelize';
-import { sequelize } from '../models/index.js';  
+import { sequelize } from '../models/index.js';
+
 class User extends Model {
   static associate(models) {
-    // 
+    // Un usuario pertenece a un rol
+    this.belongsTo(models.Role, {
+      foreignKey: 'role_id',
+      as: 'role',
+    });
   }
 }
 
@@ -12,7 +17,7 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    lastName: {
+    alias: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -24,6 +29,18 @@ User.init(
     },
     password: {
       type: DataTypes.STRING,
+      allowNull: false,
+    },
+    role_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'roles',
+        key: 'id',
+      },
+    },
+    token_amount: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },
