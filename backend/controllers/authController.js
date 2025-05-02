@@ -1,10 +1,15 @@
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
+import { sequelize } from '../models/index.js';
+import { createInitialTokenTransaction } from './transactionController.js';
+import { generateToken } from '../utils/auth.js';
+import { DEFAULT_ROLE_ID } from '../config/constants.js';
 
 // Registro de usuario
 export const signup = async (req, res) => {
     const { email, password, firstName, alias } = req.body;
+    let transaction;
+
     try {
         // Comprobar si el usuario ya existe
         const existing = await User.findOne({ where: { email } });
@@ -16,19 +21,36 @@ export const signup = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashed = await bcrypt.hash(password, salt);
 
+        // Inicializar transaccion
+        transaction = await sequelize.transaction();
+
         // Crear usuario
-        const user = await User.create({ email, password: hashed, firstName, alias, role_id:3, token_amount:100 });
+        const user = await User.create({ email, password: hashed, firstName, alias, role_id: DEFAULT_ROLE_ID }, { transaction });
+        
+        // Asignar tokens iniciales
+        await createInitialTokenTransaction({ user, transaction });
+        await transaction.commit();
 
         // Firmar JWT
-        const token = jwt.sign(
-            { userId: user.id },
-            process.env.JWT_SECRET,
-            { expiresIn: process.env.JWT_EXPIRES_IN }
-        );
+        const token = generateToken(user);
 
-        res.status(201).json({ token });
+        res.status(201).json({
+            token,
+            user: {
+                userId: user.id,
+                alias: user.alias,
+                role: user.role_id,
+            }
+        });
+
     } catch (err) {
-        console.error('Error en signup:', err);
+        if (transaction) {
+            try {
+                await transaction.rollback();
+            } catch (rollbackErr) {
+                console.error('Error en el rollback de la transacción:', rollbackErr);
+            }
+        } console.error('Error en signup:', err);
         res.status(500).json({ msg: 'Error del servidor' });
     }
 };
@@ -50,11 +72,7 @@ export const login = async (req, res) => {
         }
 
         // Firmar JWT
-        const token = jwt.sign(
-            { userId: user.id },
-            process.env.JWT_SECRET,
-            { expiresIn: process.env.JWT_EXPIRES_IN }
-        );
+        const token = generateToken(user);
 
         res.json({ token });
     } catch (err) {

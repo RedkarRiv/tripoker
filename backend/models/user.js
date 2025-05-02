@@ -42,6 +42,7 @@ User.init(
     token_amount: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      defaultValue: 0, 
     },
   },
   {

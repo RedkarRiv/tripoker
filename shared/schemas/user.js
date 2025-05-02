@@ -34,8 +34,8 @@ export const registerSchema = (data) => {
         return 'Las contraseñas no coinciden';
       case !data.firstName || data.firstName.trim() === '':
         return 'El primer nombre es obligatorio';
-      case !data.lastName || data.lastName.trim() === '':
-        return 'El apellido es obligatorio';
+      case !data.alias || data.alias.trim() === '':
+        return 'El alias es obligatorio';
       default:
         return null;  // No hay errores
     }

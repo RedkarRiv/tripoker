@@ -18,7 +18,7 @@ function RegisterForm() {
   } = useFormValidation(
     {
       firstName: '',
-      lastName: '',
+      alias: '',
       email: '',
       password: '',
       confirmPassword: '',
@@ -55,18 +55,18 @@ function RegisterForm() {
         {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>}
       </div>
 
-      {/* Apellidos */}
+      {/* Alias */}
       <div className="flex flex-col">
         <input
           type="text"
-          name="lastName"
-          placeholder="Apellidos"
-          value={values.lastName}
+          name="alias"
+          placeholder="Alias"
+          value={values.alias}
           onChange={handleChange}
           onBlur={handleBlur}
           className="border p-2"
         />
-        {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
+        {errors.alias && <p className="text-red-500 text-sm">{errors.alias}</p>}
       </div>
 
       {/* Email */}
