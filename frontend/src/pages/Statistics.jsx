@@ -5,9 +5,8 @@ const Statistics = ({ inheritClass }) => {
   const { t } = useTranslation('statistics')
 
   return (
-    <div className={`${inheritClass} w-full h-screen bg-red-100 flex items-center justify-center flex-col pt-[4rem]`}>
-      <h1 className="text-5xl font-bold text-red-900 p-3">Stats</h1>
-      <p>{t('welcome')}</p>
+    <div className={`${inheritClass} w-full h-fit min-h-screen bg-secondaryColor flex items-center justify-center flex-col`}>
+      <h1 className="text-5xl font-bold text-white p-3">Stats</h1>
     </div>
   );
 };

@@ -15,3 +15,34 @@ export const registerSchema = yup.object().shape({
     .oneOf([yup.ref('password')], 'Las contraseñas no coinciden')
     .required('Confirma tu contraseña'),
 });
+
+export const accountSchema = yup.object().shape({
+  firstName: yup.string().required('Requerido'),
+  alias: yup.string().required('Requerido'),
+
+  currentPassword: yup.string().when('$isChangingPassword', {
+    is: true,
+    then: (schema) => schema.required('Contraseña actual requerida'),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+
+  newPassword: yup.string().when('$isChangingPassword', {
+    is: true,
+    then: (schema) =>
+      schema
+        .min(6, 'Mínimo 6 caracteres')
+        .required('Nueva contraseña requerida'),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+
+  confirmNewPassword: yup.string().when('$isChangingPassword', {
+    is: true,
+    then: (schema) =>
+      schema
+        .required('Confirmación requerida')
+        .test('passwords-match', 'Las contraseñas no coinciden', function (value) {
+          return value === this.parent.newPassword;
+        }),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+});

@@ -12,8 +12,8 @@ const Register = ({ inheritClass }) => {
   };
 
   return (
-    <div className={`${inheritClass} w-full h-screen bg-yellow-100 flex items-center justify-center flex-col  pt-[4rem]`}>
-      <h1 className="text-5xl font-bold text-yellow-900 p-3">{showLogin ? t('login') : t('register')}</h1>
+    <div className={`${inheritClass} w-full h-fit min-h-screen bg-secondaryColor flex items-center justify-center flex-col`}>
+      <h1 className="text-5xl font-bold text-white p-3">{showLogin ? t('login') : t('register')}</h1>
          {showLogin ? (
           <div className="flex flex-col justify-center">
             <LoginForm />
