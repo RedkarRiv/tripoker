@@ -8,5 +8,6 @@ export default {
     brand: 'Tripoker',
     rules: 'Rules',
     ranking: 'Ranking',
-    stats: 'Statistics'
+    stats: 'Statistics',
+    account: 'Account'
   };

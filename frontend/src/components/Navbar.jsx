@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import _get from 'lodash/get';
 import _map from 'lodash/map';
 import categories from '@data/categories';
 import LanguageSwitcher from './LanguageSwitcher';
 import pokerHandIcon from '@public/icons/poker_hand.svg';
+import logoutIcon from '@public/icons/logout.svg';
+import { logout } from '@features/auth/authSlice';
 
 const Navbar = ({ onToggle }) => {
   const { t } = useTranslation('navbar')
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => _get(state, "auth.isAuthenticated"));
+  const isMobile = useSelector((state) => _get(state, "viewport.isMobile"));
 
   const [isOpen, setIsOpen] = useState(() => {
-    const isMobile = window.innerWidth < 768;  // TODO react-responsive || react-devide-detect
     return !isMobile;
   });
 
@@ -21,6 +29,11 @@ const Navbar = ({ onToggle }) => {
 
   const toggleNavbar = () => {
     setIsOpen((prev) => !prev);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/');
   };
 
 
@@ -36,7 +49,7 @@ const Navbar = ({ onToggle }) => {
         >
           X
         </button>
-        <div className="flex flex-col h-full p-4 pr-8 items-end">
+        <div className="flex flex-col h-full p-4 items-end">
           {/* Botón de toggle para la barra */}
 
 
@@ -66,13 +79,17 @@ const Navbar = ({ onToggle }) => {
           </div>
 
           {/* Área de usuario */}
-          <div className="flex justify-between items-start mt-auto gap-2 w-full">
-            <a
-              href="/contact"
-              className="text-base font-medium hover:text-blue-200 transition-colors"
-            >
-              {t('login')}
-            </a>
+          <div className="flex justify-around items-center mt-auto gap-2 w-full">
+            {isAuthenticated ?
+              <div className="flex justify-between w-fit gap-2">
+                <Link to="/account" className="text-base font-medium hover:bg-primaryColor rounded px-2 py-1">{t('account')}</Link>
+                <div className="hover:bg-primaryColor p-1 flex justify-center rounded cursor-pointer" onClick={handleLogout}>
+                  <img src={logoutIcon} alt="Party icon" className="w-5 invert" />
+                </div>
+              </div>
+              :
+              <Link to="/register" className="text-base font-medium hover:bg-primaryColor rounded px-2 py-1">{t('login')}</Link>
+            }
             <div className="relative">
               <LanguageSwitcher />
             </div>

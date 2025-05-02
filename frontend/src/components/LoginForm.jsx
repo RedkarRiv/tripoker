@@ -3,9 +3,11 @@ import { setCredentials } from '@features/auth/authSlice';
 import { loginUser } from '@services/authService.js';
 import { loginSchema } from '@validations/schema.js';
 import { useFormValidation } from '@hooks/useFormValidations.js';
+import { useNavigate } from 'react-router-dom';
 
 function LoginForm() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {
     values,
@@ -25,7 +27,7 @@ function LoginForm() {
     try {
       const data = await loginUser(values);
       dispatch(setCredentials({ token: data.token, user: data.user }));
-      // REDIRIGIR
+      navigate('/account');
     } catch (error) {
       console.error(error);
     }
@@ -33,8 +35,6 @@ function LoginForm() {
 
   return (
     <div className="flex flex-col gap-4 max-w-md mx-auto mt-10">
-      <h1>LOGIN</h1>
-
       <div className="flex flex-col">
         <input
           type="email"

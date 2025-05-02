@@ -8,25 +8,29 @@ const sections = [
     name: 'createRoom',
     status: 'active',
     url: '/createRoom',
-    icon: dealerIcon
+    icon: dealerIcon,
+    auth: false
   },
   {
     name: 'rooms',
     status: 'active',
     url: '/rooms',
-    icon: pokerCircleIcon
+    icon: pokerCircleIcon,
+    auth: false
   },
   {
     name: 'budget',
     status: 'active',
     url: '/budget',
-    icon: pokerTokenIcon
+    icon: pokerTokenIcon,
+    auth: false
   },
   {
     name: 'friends',
     status: 'active',
     url: '/friends',
-    icon: pokerFriendIcon
+    icon: pokerFriendIcon,
+    auth: true
   }
 ];
 

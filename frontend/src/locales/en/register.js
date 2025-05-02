@@ -1,4 +1,5 @@
 export default {
-    title: 'Contact',
+    register: 'Register',
+    login: 'Login',
     welcome: 'Contact with our app!',
   };

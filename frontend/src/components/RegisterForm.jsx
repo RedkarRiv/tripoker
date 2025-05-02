@@ -3,9 +3,11 @@ import { setCredentials } from '@features/auth/authSlice';
 import { registerUser } from '@services/authService.js';
 import { registerSchema } from '@validations/schema.js';
 import { useFormValidation } from '@hooks/useFormValidations.js';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterForm() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {
     values,
@@ -31,7 +33,7 @@ function RegisterForm() {
     try {
       const data = await registerUser(values);
       dispatch(setCredentials({ token: data.token, user: data.user }));
-      // REDIRIGIR
+      navigate('/account');
     } catch (error) {
       console.error(error);
     }
@@ -39,8 +41,6 @@ function RegisterForm() {
 
   return (
     <div className="flex flex-col gap-4 max-w-md mx-auto mt-10">
-      <h1>REGISTRO</h1>
-
       {/* Nombre */}
       <div className="flex flex-col">
         <input
