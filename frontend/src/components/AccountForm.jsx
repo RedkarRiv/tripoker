@@ -102,9 +102,9 @@ const AccountForm = () => {
       console.log("Son iguales:", user.newPassword === user.confirmNewPassword);
       await accountSchema.validate(user, {
         context: { isChangingPassword },
-        abortEarly: false,  // Esto es para asegurarse de que se validen todos los campos
+        abortEarly: false, 
       });
-      // Procede con el envío del formulario
+
       const data = {
         firstName: user.firstName,
         alias: user.alias,
@@ -121,7 +121,7 @@ const AccountForm = () => {
       validationError.inner.forEach((err) => {
         newErrors[err.path] = err.message;
       });
-      setErrors(newErrors);  // Muestra todos los errores
+      setErrors(newErrors); 
     }
   };
 
@@ -146,7 +146,7 @@ const AccountForm = () => {
             value={_get(user, field, '')}
             readOnly={!isEditable}
             onChange={handleInputChange}
-            onBlur={() => handleBlur(field)} // <- validación campo individual
+            onBlur={() => handleBlur(field)}
           />
           <div className="absolute inset-y-0 right-0 flex items-center pr-3 space-x-2">
             {type === 'password' ? (

@@ -19,13 +19,11 @@ export const registerSchema = yup.object().shape({
 export const accountSchema = yup.object().shape({
   firstName: yup.string().required('Requerido'),
   alias: yup.string().required('Requerido'),
-
   currentPassword: yup.string().when('$isChangingPassword', {
     is: true,
     then: (schema) => schema.required('Contraseña actual requerida'),
     otherwise: (schema) => schema.notRequired(),
   }),
-
   newPassword: yup.string().when('$isChangingPassword', {
     is: true,
     then: (schema) =>
@@ -34,7 +32,6 @@ export const accountSchema = yup.object().shape({
         .required('Nueva contraseña requerida'),
     otherwise: (schema) => schema.notRequired(),
   }),
-
   confirmNewPassword: yup.string().when('$isChangingPassword', {
     is: true,
     then: (schema) =>
