@@ -8,6 +8,11 @@ export const setupSocket = (server) => {
   io.on('connection', (socket) => {
     console.log(`🔌 Usuario conectado: ${socket.id}`);
 
+    socket.on('chatMessage', (msg) => {
+      console.log('📩 Mensaje recibido del cliente:', msg);
+      io.emit('chatMessage', msg);
+    });
+
     socket.on('disconnect', () => {
       console.log(`❌ Usuario desconectado: ${socket.id}`);
     });

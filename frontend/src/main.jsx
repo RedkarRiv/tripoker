@@ -7,20 +7,23 @@ import { store, persistor } from '@store/store';
 import './index.css';
 import App from './App.jsx';
 import { io } from 'socket.io-client';
+import { SocketProvider } from './context/SocketContext';
 
-/* const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 const socket = io(API_URL);
 
 socket.on('connect', () => {
   console.log('Connected to server');
-}); */
+});
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-          <App />
+          <SocketProvider socket={socket}>
+            <App />
+          </SocketProvider>
         </BrowserRouter>
       </PersistGate>
     </Provider>

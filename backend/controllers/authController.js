@@ -74,7 +74,11 @@ export const login = async (req, res) => {
         // Firmar JWT
         const token = generateToken(user);
 
-        res.json({ token });
+        res.json({ token, user:{ 
+          role: user.role_id,
+          firstName: user.firstName,
+          alias: user.alias}
+        });
     } catch (err) {
         console.error('Error en login:', err);
         res.status(500).json({ msg: 'Error del servidor' });
