@@ -53,7 +53,7 @@ const Room = ({ inheritClass }) => {
   const handClass = 'h-12 w-8 md:h-24 md:w-14 bg-white rounded'
   const playerHandClass = 'h-20 w-12 md:h-28 md:w-16 bg-white rounded'
   return (
-    <div className={`${inheritClass} w-full min-h-screen h-screen bg-secondaryColor flex items-center justify-start flex-col md:pb-8 md:pt-0 md:pt-16 overflow-x-hidden relative`}>
+    <div className={`${inheritClass} w-full min-h-screen h-screen bg-secondaryColor flex items-center justify-start flex-col md:pb-8 md:pt-0 overflow-x-hidden relative`}>
       <span
         onClick={() => setChatVisible((prev) => !prev)}
         className={`text-white px-2 rounded self-end md:self-auto mb-2 absolute cursor-pointer right-4 top-5 z-10  ${chatVisible ? 'bg-black' : 'bg-fontPrimaryColor'}`}
@@ -113,7 +113,7 @@ const Room = ({ inheritClass }) => {
               </div>
             </div>}
           <div id="table" className="w-full h-fit max-w-[100vw] flex items-start bg-red-500 md:p-2 p-1 md:gap-4 md:my-auto mb-3">
-            {!isMobile && <div className="md:w-full w-0 h-full flex flex-col">
+            {!isMobile && <div className="md:w-full flex-1 w-0 h-full flex flex-col">
               <div className="w-full h-20 bg-black flex justify-center items-center p-4">
                 <div className="aspect-square md:h-full md:w-auto rounded-full bg-red-400"></div>
                 <div className="flex-1 flex flex-col md:justify-center justify-end items-start md:ml-4 text-center text-xs w-full px-1">
@@ -176,7 +176,7 @@ const Room = ({ inheritClass }) => {
                 </div>
               </div>
             </div>
-            {!isMobile && <div className="md:w-full  w-0 h-full flex flex-col">
+            {!isMobile && <div className="md:w-full  flex-1 w-0 h-full flex flex-col">
               <div className="w-full h-20 bg-black flex justify-center items-center p-4">
                 <div className="aspect-square md:h-full md:w-auto rounded-full bg-red-400"></div>
                 <div className="flex-1 flex flex-col md:justify-center justify-end items-start md:ml-4 text-center text-xs w-full px-1">
@@ -216,7 +216,7 @@ const Room = ({ inheritClass }) => {
           </div>
         </div>
       </div>
-      <div id="chat" className={`min-w-64 md:w-1/4 w-full h-[100vh] px-2 rounded flex flex-col transition-all duration-500 ease-in-out absolute md:py-4 right-0 ${!chatVisible ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div id="chat" className={`min-w-64 md:w-1/4 w-full h-[100vh] px-2 rounded flex flex-col transition-all duration-500 ease-in-out absolute md:py-4 right-0 ${chatVisible ? 'translate-x-0' : 'translate-x-full'}`}>
           <div className="flex flex-col flex-1  bg-gray-200 rounded overflow-hidden">
             <div className="flex-1 overflow-y-auto max-h-[15dvh] md:max-h-full">
               {messages.map((msg, index) => {

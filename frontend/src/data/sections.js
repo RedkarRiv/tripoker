@@ -20,7 +20,7 @@ const sections = [
   },
   {
     name: 'budget',
-    status: 'active',
+    status: 'inactive',
     url: '/budget',
     icon: pokerTokenIcon,
     auth: false
@@ -30,6 +30,13 @@ const sections = [
     status: 'active',
     url: '/friends',
     icon: pokerFriendIcon,
+    auth: true
+  },
+  {
+    name: 'bot',
+    status: 'active',
+    url: '/solo',
+    icon: pokerTokenIcon,
     auth: true
   }
 ];

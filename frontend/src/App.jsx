@@ -7,6 +7,7 @@ import Rules from '@pages/Rules';
 import Ranking from '@pages/Ranking';
 import Account from '@pages/Account';
 import Room from '@pages/Room';
+import Solo from '@pages/Solo';
 import Statistics from '@pages/Statistics';
 import Navbar from '@components/Navbar';
 import ViewportDetector from '@components/ViewportDetector';
@@ -38,6 +39,7 @@ const App = () => {
         <Route path="/statistics" element={<Statistics inheritClass={baseClass} />} />
         <Route path="/rooms" element={<Room inheritClass={baseClass} />} />
         <Route path="/account" element={<Account inheritClass={baseClass} />} />
+        <Route path="/solo" element={<Solo inheritClass={baseClass} />} />
       </Routes>
     </>
   );

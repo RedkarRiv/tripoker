@@ -101,7 +101,7 @@ const Navbar = ({ onToggle }) => {
       {!isOpen && (
         <button
           onClick={toggleNavbar}
-          className="fixed top-4 left-4 text-white bg-primaryColor h-8 w-8 rounded-full shadow-lg z-49"
+          className="fixed md:top-4 md:left-4 top-2 left-2 text-white bg-black h-8 w-8 rounded-full shadow-lg z-10"
         >
           <span className="text-md">☰</span> {/* Ícono de hamburguesa */}
         </button>
